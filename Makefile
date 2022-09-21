@@ -139,7 +139,8 @@ Middlewares/Third_Party/LwIP/src/core/ipv6/ip6_addr.c \
 Middlewares/Third_Party/LwIP/src/core/ipv6/ip6_frag.c \
 Middlewares/Third_Party/LwIP/src/core/ipv6/mld6.c \
 Middlewares/Third_Party/LwIP/src/core/ipv6/nd6.c \
-Middlewares/Third_Party/LwIP/src/apps/mqtt/mqtt.c
+Middlewares/Third_Party/LwIP/src/apps/mqtt/mqtt.c \
+Core/Src/tcp_echoserver.c
 
 # ASM sources
 ASM_SOURCES =  \
