@@ -39,6 +39,10 @@ C_SOURCES =  \
 Core/Src/main.c \
 Core/Src/stm32f4xx_it.c \
 Core/Src/stm32f4xx_hal_msp.c \
+Core/Src/tcp_echoserver.c \
+Core/Src/freertos.c \
+Core/Src/stm32f4xx_hal_timebase_tim.c \
+Core/Src/tcp_socket_server.c \
 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.c \
 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c \
 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_uart.c \
@@ -140,9 +144,6 @@ Middlewares/Third_Party/LwIP/src/core/ipv6/ip6_frag.c \
 Middlewares/Third_Party/LwIP/src/core/ipv6/mld6.c \
 Middlewares/Third_Party/LwIP/src/core/ipv6/nd6.c \
 Middlewares/Third_Party/LwIP/src/apps/mqtt/mqtt.c \
-Core/Src/tcp_echoserver.c \
-Core/Src/freertos.c \
-Core/Src/stm32f4xx_hal_timebase_tim.c \
 Middlewares/Third_Party/FreeRTOS/Source/croutine.c \
 Middlewares/Third_Party/FreeRTOS/Source/event_groups.c \
 Middlewares/Third_Party/FreeRTOS/Source/list.c \
@@ -154,6 +155,8 @@ Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.c \
 Middlewares/Third_Party/FreeRTOS/Source/portable/MemMang/heap_4.c \
 Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F/port.c \
 Middlewares/Third_Party/LwIP/system/OS/sys_arch.c
+
+
 
 # ASM sources
 ASM_SOURCES =  \

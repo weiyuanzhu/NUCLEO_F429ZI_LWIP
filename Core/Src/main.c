@@ -314,7 +314,8 @@ void StartDefaultTask(void *argument)
   for(;;)
   {
     HAL_GPIO_TogglePin(LD1_GPIO_Port, LD1_Pin);
-    osDelay(500);
+    vTcpServerTask();
+    osDelay(100);
   }
   /* USER CODE END 5 */
 }
