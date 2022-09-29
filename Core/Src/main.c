@@ -47,7 +47,7 @@ UART_HandleTypeDef huart3;
 osThreadId_t defaultTaskHandle;
 const osThreadAttr_t defaultTask_attributes = {
   .name = "defaultTask",
-  .stack_size = 1024,
+  .stack_size = 1024 * 4,
   .priority = (osPriority_t) osPriorityNormal,
 };
 /* USER CODE BEGIN PV */
@@ -314,7 +314,7 @@ void StartDefaultTask(void *argument)
   for(;;)
   {
     HAL_GPIO_TogglePin(LD1_GPIO_Port, LD1_Pin);
-    vTcpThreadServerTask();
+    vSelectServerTask();
     osDelay(100);
   }
   /* USER CODE END 5 */

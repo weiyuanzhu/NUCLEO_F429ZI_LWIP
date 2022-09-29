@@ -7,5 +7,6 @@
 
 void vTcpServerTask(void);
 void vTcpThreadServerTask(void);
+void vSelectServerTask(void);
 
 #endif
