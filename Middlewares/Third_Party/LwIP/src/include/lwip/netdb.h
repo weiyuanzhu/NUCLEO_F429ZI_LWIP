@@ -35,6 +35,7 @@
 #define LWIP_HDR_NETDB_H
 
 #include "lwip/opt.h"
+#include "lwipopts.h"
 
 #if LWIP_DNS && LWIP_SOCKET
 

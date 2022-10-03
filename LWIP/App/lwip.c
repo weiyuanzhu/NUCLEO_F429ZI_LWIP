@@ -45,9 +45,11 @@ struct netif gnetif;
 ip4_addr_t ipaddr;
 ip4_addr_t netmask;
 ip4_addr_t gw;
+ip4_addr_t dns;
 uint8_t IP_ADDRESS[4];
 uint8_t NETMASK_ADDRESS[4];
 uint8_t GATEWAY_ADDRESS[4];
+uint8_t DNS_ADDRESS[4];
 /* USER CODE BEGIN OS_THREAD_ATTR_CMSIS_RTOS_V2 */
 #define INTERFACE_THREAD_STACK_SIZE ( 1024 )
 osThreadAttr_t attributes;
@@ -75,6 +77,10 @@ void MX_LWIP_Init(void)
   GATEWAY_ADDRESS[1] = 168;
   GATEWAY_ADDRESS[2] = 1;
   GATEWAY_ADDRESS[3] = 122;
+  DNS_ADDRESS[0] = 8;
+  DNS_ADDRESS[1] = 8;
+  DNS_ADDRESS[2] = 8;
+  DNS_ADDRESS[3] = 8;
 
 /* USER CODE BEGIN IP_ADDRESSES */
 /* USER CODE END IP_ADDRESSES */
@@ -84,6 +90,7 @@ void MX_LWIP_Init(void)
   IP4_ADDR(&ipaddr, IP_ADDRESS[0], IP_ADDRESS[1], IP_ADDRESS[2], IP_ADDRESS[3]);
   IP4_ADDR(&netmask, NETMASK_ADDRESS[0], NETMASK_ADDRESS[1] , NETMASK_ADDRESS[2], NETMASK_ADDRESS[3]);
   IP4_ADDR(&gw, GATEWAY_ADDRESS[0], GATEWAY_ADDRESS[1], GATEWAY_ADDRESS[2], GATEWAY_ADDRESS[3]);
+  IP4_ADDR(&dns, DNS_ADDRESS[0], DNS_ADDRESS[1], DNS_ADDRESS[2], DNS_ADDRESS[3]);
 
   /* Initilialize the LwIP stack with RTOS */
   tcpip_init( NULL, NULL );

@@ -9,7 +9,7 @@ void vDnsClientTask(void){
   struct sockaddr_in server_addr;
   //dns 域名解析功能
   struct hostent *p_hostent = NULL;	
-  p_hostent = gethostbyname("www.google.com");
+  p_hostent = gethostbyname("www.google.co.uk");
   if(p_hostent){
 	for(i = 0; p_hostent->h_addr_list[i]; i++){	
 	  printf("host ip:%s\r\n", inet_ntoa(*p_hostent->h_addr_list[i]));	
