@@ -25,6 +25,7 @@
 /* USER CODE BEGIN Includes */
 #include "tcp_echoserver.h"
 #include "tcp_socket_server.h"
+#include "dns_client.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -315,7 +316,7 @@ void StartDefaultTask(void *argument)
   for(;;)
   {
     HAL_GPIO_TogglePin(LD1_GPIO_Port, LD1_Pin);
-    vSelectServerTask();
+    vDnsClientTask();
     osDelay(100);
   }
   /* USER CODE END 5 */

@@ -46,6 +46,7 @@ Core/Src/tcp_socket_server.c \
 Core/Src/tcp_socket_thread_server.c \
 Core/Src/tcp_socket_select_server.c \
 Core/Src/socket_wrap.c \
+core/Src/dns_client.c \
 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.c \
 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c \
 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_uart.c \

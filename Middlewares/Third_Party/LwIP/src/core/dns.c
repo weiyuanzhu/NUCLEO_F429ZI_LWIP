@@ -97,6 +97,11 @@
 
 #include <string.h>
 
+#ifndef DNS_SERVER_ADDRESS
+extern ip4_addr_t gw;   //网关地址
+#define DNS_SERVER_ADDRESS(ipaddr)	(memcpy(ipaddr, &gw, sizeof(ip4_addr_t)))
+#endif
+
 /** Random generator function to create random TXIDs and source ports for queries */
 #ifndef DNS_RAND_TXID
 #if ((LWIP_DNS_SECURE & LWIP_DNS_SECURE_RAND_XID) != 0)
@@ -1627,5 +1632,6 @@ dns_gethostbyname_addrtype(const char *hostname, ip_addr_t *addr, dns_found_call
   return dns_enqueue(hostname, hostnamelen, found, callback_arg LWIP_DNS_ADDRTYPE_ARG(dns_addrtype)
                      LWIP_DNS_ISMDNS_ARG(is_mdns));
 }
+
 
 #endif /* LWIP_DNS */
