@@ -40,18 +40,22 @@ void vSelectServerTask(void){
 	//初始化为-1
 	clientfds[i] = -1;
   }
-  while(1){
+  while(1)
+  {
 	//每次select返回之后，fd_set集合就会变化，再select时，就不能使用，
 	//所以我们要保存设置fd_set 和 读取的fd_set
 	read_set = all_set;
 	nready = select(maxfd + 1, &read_set, NULL, NULL, NULL);
 	//没有超时机制，不会返回0
-	if(nready < 0){
+	if(nready < 0)
+	{
 	  printf("select error \r\n");
 	  vTaskDelete(NULL);
 	}
 	//判断监听的套接字是否有数据
-	if(FD_ISSET(sfd, &read_set)){	
+	int test = FD_ISSET(sfd, &read_set);
+	if(test)
+	{	
 	  //有客户端进行连接了
 	  cfd = accept(sfd, (struct sockaddr *)&client_addr, &client_addr_len);
 	  if(cfd < 0){
@@ -79,7 +83,8 @@ void vSelectServerTask(void){
 	  }	
     }
 	//遍历所有的客户端文件描述符
-	for(i = 0; i < FD_SETSIZE -1 ; i++){
+	for(i = 0; i < FD_SETSIZE -1 ; i++)
+	{
 	  if(clientfds[i] == -1){
 		//继续遍历
 		continue;
