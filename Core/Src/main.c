@@ -26,6 +26,7 @@
 #include "tcp_echoserver.h"
 #include "tcp_socket_server.h"
 #include "dns_client.h"
+#include "stdio.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -68,7 +69,21 @@ void StartDefaultTask(void *argument);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-
+#ifdef __GNUC__
+  int _write(int file, char *ptr, int len)
+  {
+  int i=0;
+  for(i=0;i<len;i++)
+  ITM_SendChar((*ptr++));
+  return len;
+  }
+#else
+  int fputc(int c,FILE*f)
+  {
+    ITM_SendChar(c);
+    return(c);
+  }
+#endif
 /* USER CODE END 0 */
 
 /**
@@ -136,6 +151,7 @@ int main(void)
   /* USER CODE END RTOS_EVENTS */
 
   /* Start scheduler */
+  printf("RTOS starts\r\n");
   osKernelStart();
 
   /* We should never get here as control is now taken by the scheduler */
@@ -310,12 +326,13 @@ static void MX_GPIO_Init(void)
 void StartDefaultTask(void *argument)
 {
   /* init code for LWIP */
+  printf("LWIP Init starts\r\n");
   MX_LWIP_Init();
   /* USER CODE BEGIN 5 */
   /* Infinite loop */
   for(;;)
   {
-    HAL_GPIO_TogglePin(LD1_GPIO_Port, LD1_Pin);
+    // HAL_GPIO_TogglePin(LD1_GPIO_Port, LD1_Pin);
     vDnsClientTask();
     osDelay(100);
   }
