@@ -329,6 +329,7 @@ void StartDefaultTask(void *argument)
   printf("LWIP Init starts\r\n");
   MX_LWIP_Init();
   /* USER CODE BEGIN 5 */
+  printf("DNS client test!\r\n");
   /* Infinite loop */
   for(;;)
   {

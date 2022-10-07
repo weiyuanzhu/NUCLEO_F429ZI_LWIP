@@ -98,8 +98,9 @@
 #include <string.h>
 
 #ifndef DNS_SERVER_ADDRESS
-extern ip4_addr_t dns;   //网关地址
-#define DNS_SERVER_ADDRESS(ipaddr)	(memcpy(ipaddr, &dns, sizeof(ip4_addr_t)))
+// extern ip4_addr_t gw;   //网关地址
+// #define DNS_SERVER_ADDRESS(ipaddr)	(memcpy(ipaddr, &gw, sizeof(ip4_addr_t)))
+#define DNS_SERVER_ADDRESS(ipaddr) (ip4_addr_set_u32(ipaddr, ipaddr_addr("8.8.8.8")))
 #endif
 
 /** Random generator function to create random TXIDs and source ports for queries */
