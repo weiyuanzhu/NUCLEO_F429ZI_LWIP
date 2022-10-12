@@ -67,7 +67,21 @@ void StartDefaultTask(void *argument);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-
+#ifdef __GNUC__
+int _write(int file, char *ptr, int len)
+{
+   int i=0;
+   for(i=0 ; i<len ; i++)
+      ITM_SendChar((*ptr++));
+   return len;
+}
+#else 
+int fputc(int c, FILE *f)
+{
+   ITM_SendChar(c);
+   return(c);
+}
+#endif
 /* USER CODE END 0 */
 
 /**
