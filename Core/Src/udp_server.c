@@ -5,6 +5,9 @@
 #include "ctype.h"
 
 static char ReadBuff[BUFF_SIZE];
+static char SendBuff[163] = {0x49, 0x4d, 0x49 ,0x4e, 0x00, 0x09, 0xdc, 0x4d, 0xb7, 0x80, 0x01, 0xc0 ,0xa8 ,0x01 ,0x11, 0xff,
+                             0xff , 0xff , 0x00 , 0xc0 , 0xa8 , 0x01 , 0x11 , 0x01 , 0xf4 , 0x00 , 0x00 , 0x00 , 0x00 , 0x00 , 0x00 , 0xff,
+                             0x08 , 0x00 , 0x01 , 0x00 , 0x00 , 0x00 , 0x00 , 0x00 , 0x00 , 0x00 , 0xb4 , 0x01 , 0x05 , 0x0d};
 
 void vUDPServerTask() {
     int sfd, n, i;
@@ -25,10 +28,10 @@ void vUDPServerTask() {
         ReadBuff[n] = '\0';
         printf("udp recv data:%s\r\n", ReadBuff);
 
-        for(i = 0; i < n; i++){
-            ReadBuff[i] = toupper(ReadBuff[i]);	
-        }	
-
-        sendto(sfd, ReadBuff, n, 0, (struct sockaddr *)&client_addr, client_addr_len);
+        // for(i = 0; i < n; i++){
+        //     ReadBuff[i] = toupper(ReadBuff[i]);	
+        // }	
+        client_addr.sin_addr.s_addr = htonl(INADDR_BROADCAST);
+        sendto(sfd, SendBuff, sizeof(SendBuff), 0, (struct sockaddr *)&client_addr, client_addr_len);
     }
 }
