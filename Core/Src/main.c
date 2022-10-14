@@ -24,6 +24,7 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "tcp_echoserver.h"
+#include "udp_server.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -66,7 +67,21 @@ void StartDefaultTask(void *argument);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-
+#ifdef __GNUC__
+int _write(int file, char *ptr, int len)
+{
+   int i=0;
+   for(i=0 ; i<len ; i++)
+      ITM_SendChar((*ptr++));
+   return len;
+}
+#else 
+int fputc(int c, FILE *f)
+{
+   ITM_SendChar(c);
+   return(c);
+}
+#endif
 /* USER CODE END 0 */
 
 /**
@@ -314,7 +329,7 @@ void StartDefaultTask(void *argument)
   for(;;)
   {
     HAL_GPIO_TogglePin(LD1_GPIO_Port, LD1_Pin);
-    vTcpServerTask();
+    vUDPServerTask();
     osDelay(100);
   }
   /* USER CODE END 5 */

@@ -44,6 +44,7 @@ Core/Src/freertos.c \
 Core/Src/stm32f4xx_hal_timebase_tim.c \
 Core/Src/tcp_socket_server.c \
 Core/Src/socket_wrap.c \
+Core/Src/udp_server.c \
 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.c \
 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c \
 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_uart.c \
