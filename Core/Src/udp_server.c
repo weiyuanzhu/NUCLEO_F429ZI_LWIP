@@ -19,6 +19,7 @@ void vUDPServerTask() {
     server_addr.sin_port = htons(UDP_PORT);
     server_addr.sin_addr.s_addr = htonl(INADDR_ANY);
     // Bind socket
+    printf("Bind UDP socket\r\n");
     Bind(sfd, (struct sockaddr *)&server_addr, sizeof(server_addr));
     client_addr_len = sizeof(client_addr);
 

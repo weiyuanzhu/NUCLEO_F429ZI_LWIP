@@ -17,6 +17,7 @@ void vTcpServerTask(void)
     //绑定socket
     Bind(sfd, (struct sockaddr *)&server_addr, sizeof(server_addr));
     //监听socket
+    printf("Bind and listen on TCP socket\r\n");
     Listen(sfd, 5);
     //等待客户端连接
     client_addr_len = sizeof(client_addr);

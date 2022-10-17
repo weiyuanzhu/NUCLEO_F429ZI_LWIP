@@ -324,6 +324,7 @@ static void MX_GPIO_Init(void)
 void StartDefaultTask(void *argument)
 {
   /* init code for LWIP */
+  printf("Init LWIP\r\n");
   MX_LWIP_Init();
   xTaskCreate((TaskFunction_t)vTcpServerTask, "tcp_socket_server", 1024, NULL, osPriorityNormal, NULL);
   /* USER CODE BEGIN 5 */
