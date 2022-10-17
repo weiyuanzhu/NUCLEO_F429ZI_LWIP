@@ -25,6 +25,7 @@
 /* USER CODE BEGIN Includes */
 #include "tcp_echoserver.h"
 #include "udp_server.h"
+#include "tcp_socket_server.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -324,6 +325,7 @@ void StartDefaultTask(void *argument)
 {
   /* init code for LWIP */
   MX_LWIP_Init();
+  xTaskCreate((TaskFunction_t)vTcpServerTask, "tcp_socket_server", 1024, NULL, osPriorityNormal, NULL);
   /* USER CODE BEGIN 5 */
   /* Infinite loop */
   for(;;)
