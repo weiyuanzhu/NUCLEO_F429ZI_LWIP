@@ -44,6 +44,7 @@ Core/Src/freertos.c \
 Core/Src/stm32f4xx_hal_timebase_tim.c \
 Core/Src/tcp_socket_server.c \
 Core/Src/socket_wrap.c \
+Core/Src/mqttclient.c \
 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.c \
 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c \
 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_uart.c \
@@ -155,7 +156,22 @@ Middlewares/Third_Party/FreeRTOS/Source/timers.c \
 Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.c \
 Middlewares/Third_Party/FreeRTOS/Source/portable/MemMang/heap_4.c \
 Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F/port.c \
-Middlewares/Third_Party/LwIP/system/OS/sys_arch.c
+Middlewares/Third_Party/LwIP/system/OS/sys_arch.c \
+Middlewares/Third_Party/MQTT/MQTTConnectClient.c \
+Middlewares/Third_Party/MQTT/MQTTConnectServer.c \
+Middlewares/Third_Party/MQTTDeserializePublish.c \
+Middlewares/Third_Party/MQTTFormat.c \
+Middlewares/Third_Party/MQTTPacket.c \
+Middlewares/Third_Party/MQTTSerializePublish.c \
+Middlewares/Third_Party/MQTTSubscribeClient.c \
+Middlewares/Third_Party/MQTTSubscribeServer.c \
+Middlewares/Third_Party/MQTTUnsubscribeClient.c \
+Middlewares/Third_Party/MQTTUnsubscribeServer.c \
+Middlewares/Third_Party/transport.c \
+Middlewares/Third_Party/cJSON/cJSON_Process.c \
+Middlewares/Third_Party/cJSON/cJSON_Utils.c \
+Middlewares/Third_Party/cJSON/cJSON.c
+
 
 
 
@@ -238,7 +254,9 @@ C_INCLUDES =  \
 -IMiddlewares/Third_Party/LwIP/system/arch \
 -IMiddlewares/Third_Party/FreeRTOS/Source/include \
 -IMiddlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 \
--IMiddlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F
+-IMiddlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F \
+-IMiddlewares/Third_Party/MQTT \
+-IMiddlewares/Third_Party/cJSON
 
 
 # compile gcc flags

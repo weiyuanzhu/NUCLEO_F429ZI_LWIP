@@ -24,6 +24,8 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "tcp_echoserver.h"
+#include "queue.h"
+#include "mqttclient.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -33,6 +35,8 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
+#define  MQTT_QUEUE_LEN    4   /* 队列的长度，最大可包含多少个消息 */
+#define  MQTT_QUEUE_SIZE   4   /* 队列中每个消息大小（字节） */
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -51,7 +55,7 @@ const osThreadAttr_t defaultTask_attributes = {
   .priority = (osPriority_t) osPriorityNormal,
 };
 /* USER CODE BEGIN PV */
-
+QueueHandle_t MQTT_Data_Queue;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -66,7 +70,21 @@ void StartDefaultTask(void *argument);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-
+#ifdef __GNUC__
+int _write(int file, char *ptr, int len)
+{
+   int i=0;
+   for(i=0 ; i<len ; i++)
+      ITM_SendChar((*ptr++));
+   return len;
+}
+#else 
+int fputc(int c, FILE *f)
+{
+   ITM_SendChar(c);
+   return(c);
+}
+#endif
 /* USER CODE END 0 */
 
 /**
@@ -119,6 +137,10 @@ int main(void)
 
   /* USER CODE BEGIN RTOS_QUEUES */
   /* add queues, ... */
+  
+  MQTT_Data_Queue = xQueueCreate((UBaseType_t ) MQTT_QUEUE_LEN, (UBaseType_t ) MQTT_QUEUE_SIZE);
+  if(NULL != MQTT_Data_Queue)
+    printf("MQTT_Data_Queue created successfully!\r\n");
   /* USER CODE END RTOS_QUEUES */
 
   /* Create the thread(s) */
@@ -310,11 +332,13 @@ void StartDefaultTask(void *argument)
   /* init code for LWIP */
   MX_LWIP_Init();
   /* USER CODE BEGIN 5 */
+  
+  mqtt_thread_init();
   /* Infinite loop */
   for(;;)
   {
     HAL_GPIO_TogglePin(LD1_GPIO_Port, LD1_Pin);
-    vTcpServerTask();
+    // vTcpServerTask();
     osDelay(100);
   }
   /* USER CODE END 5 */
