@@ -12,11 +12,11 @@
 #if    LWIP_DNS
 #define   HOST_NAME       "a1MZHjK2SCF.iot-as-mqtt.cn-shanghai.aliyuncs.com"     //服务器域名
 #else
-#define   HOST_NAME       "192.168.0.82"     //服务器IP地址
+#define   HOST_NAME       "192.168.0.74"     //服务器IP地址
 #endif
 
 
-#define   HOST_PORT     6666    //由于是TCP连接，端口必须是1883
+#define   HOST_PORT     1883    //由于是TCP连接，端口必须是1883
 
 #define   CLIENT_ID     "12345|securemode=3,signmethod=hmacsha1|"         //
 #define   USER_NAME     "fire_temp_hum&a1MZHjK2SCF"     //用户名

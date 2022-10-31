@@ -75,17 +75,17 @@ uint8_t MQTT_Connect(void)
         unsigned char sessionPresent, connack_rc;
         if (MQTTDeserialize_connack(&sessionPresent, &connack_rc, buf, buflen) != 1 || connack_rc != 0)
         {
-          PRINT_DEBUG("无法连接，错误代码是: %d！\n", connack_rc);
+          PRINT_DEBUG("MQTT cannot connect, error code is: %d!\n\r", connack_rc);
             return Connect_NOK;
         }
         else 
         {
-            PRINT_DEBUG("用户名与密钥验证成功，MQTT连接成功！\n");
+            PRINT_DEBUG("User auth successful, MQTT connection successfully!\n");
             return Connect_OK;
         }
     }
     else
-        PRINT_DEBUG("MQTT连接无响应！\n");
+        PRINT_DEBUG("MQTT connection no response\n\r");
         return Connect_NOTACK;
 }
 
@@ -180,7 +180,7 @@ int32_t MQTTSubscribe(int32_t sock,char *topic,enum QoS pos)
 				return -4;	
 		
 		//拆订阅回应包
-		if(MQTTDeserialize_suback(&packetidbk,1, &conutbk, &qosbk, buf, buflen) != 1)
+		if(MQTTDeserialize_suback(&packetidbk, 1, &conutbk, &qosbk, buf, buflen) != 1)
 				return -5;
 		
 		//检测返回数据的正确性
@@ -204,28 +204,28 @@ void UserMsgCtl(MQTT_USER_MSG  *msg)
 		//这里处理数据只是打印，用户可以在这里添加自己的处理方式
 //   if(msg->msglenth > 2)    //只有当消息长度大于2 "{}" 的时候才去处理它 
 //   {
-      PRINT_DEBUG("*****收到订阅的消息！******\n");
+      PRINT_DEBUG("*****Receive Subscribe Message!******\n");
       //返回后处理消息
         if(msg->msglenth > 2)    //只有当消息长度大于2 "{}" 的时候才去处理它 
    {
       switch(msg->msgqos)
       {
         case 0:
-              PRINT_DEBUG("MQTT>>消息质量：QoS0\n");
+              PRINT_DEBUG("MQTT>>QoS0\n\r");
               break;
         case 1:
-              PRINT_DEBUG("MQTT>>消息质量：QoS1\n");
+              PRINT_DEBUG("MQTT>>QoS1\n\r");
               break;
         case 2:
-              PRINT_DEBUG("MQTT>>消息质量：QoS2\n");
+              PRINT_DEBUG("MQTT>>QoS2\n\r");
               break;
         default:
-              PRINT_DEBUG("MQTT>>错误的消息质量\n");
+              PRINT_DEBUG("MQTT>>Wrong QoS\n\r");
               break;
       }
-      PRINT_DEBUG("MQTT>>消息主题：%s\n",msg->topic);	
-      PRINT_DEBUG("MQTT>>消息类容：%s\n",msg->msg);	
-      PRINT_DEBUG("MQTT>>消息长度：%d\n",msg->msglenth);	 
+      PRINT_DEBUG("MQTT>>Message Topic: %s\n\r",msg->topic);	
+      PRINT_DEBUG("MQTT>>Message Content: %s\n\r",msg->msg);	
+      PRINT_DEBUG("MQTT>>Message Length: %d\n\r",msg->msglenth);	 
 
       Proscess(msg->msg);
     }
@@ -523,39 +523,39 @@ MQTT_START:
 				//如果连接服务器成功
 				if(MQTT_Socket >= 0)
 				{
-						PRINT_DEBUG("Connect to MQTT Broker successfully!\r\n");
+						PRINT_DEBUG("Init Connect to MQTT Broker successfully!\r\n");
 						break;
 				}
-				PRINT_DEBUG("Connect to MQTT Broker failed, wait 3 seconds and try again!\n");
+				PRINT_DEBUG("Init Connect to MQTT Broker failed, wait 3 seconds and try again!\n");
 				//等待3秒
 				vTaskDelay(3000);
 		}
     
-    PRINT_DEBUG("2.MQTT用户名与密钥验证登录...\n");
+    PRINT_DEBUG("2.MQTT user login...\n");
     //MQTT用户名与密钥验证登录
     if(MQTT_Connect() != Connect_OK)
     {
          //重连服务器
-         PRINT_DEBUG("MQTT用户名与密钥验证登录失败...\n");
+         PRINT_DEBUG("MQTT user auth failed...\n");
           //关闭链接
          transport_close();
          goto MQTT_START;	 
     }
     
 		//订阅消息
-		PRINT_DEBUG("3.开始订阅消息...\n");
+		PRINT_DEBUG("3.Start subscribing messages...\n");
 //    //订阅消息
 
     if(MQTTSubscribe(MQTT_Socket,(char *)TOPIC,QOS1) < 0)
     {
          //重连服务器
-         PRINT_DEBUG("客户端订阅消息失败...\n");
+         PRINT_DEBUG("Message subscribe failed...\n");
           //关闭链接
          transport_close();
          goto MQTT_START;	   
     }	
 		//无限循环
-		PRINT_DEBUG("4.开始循环接收订阅的消息...\n");
+		PRINT_DEBUG("4.Subscribing successfully, start receving messages...\n");
 
 }
 
@@ -633,12 +633,12 @@ MQTT_START:
             if(MQTT_PingReq(MQTT_Socket) < 0)
             {
                //重连服务器
-               PRINT_DEBUG("发送保持活性ping失败....\n");
+               PRINT_DEBUG("keep alive ping req failed...\n");
                goto CLOSE;	 
             }
             
             //心跳成功
-            PRINT_DEBUG("发送保持活性ping作为心跳成功....\n");
+            PRINT_DEBUG("keep alive ping req successful....\n");
             //表明有数据交换
             no_mqtt_msg_exchange = 0;
         }   
