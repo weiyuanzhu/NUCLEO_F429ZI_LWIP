@@ -337,7 +337,7 @@ void StartDefaultTask(void *argument)
   /* Infinite loop */
   for(;;)
   {
-    HAL_GPIO_TogglePin(LD1_GPIO_Port, LD1_Pin);
+    // HAL_GPIO_TogglePin(LD1_GPIO_Port, LD1_Pin);
     // vTcpServerTask();
     osDelay(100);
   }

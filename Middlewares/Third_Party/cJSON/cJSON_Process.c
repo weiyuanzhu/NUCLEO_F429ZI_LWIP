@@ -1,6 +1,7 @@
 #include "cJSON_Process.h"
 #include "main.h"
 #include "debug.h"
+#include "string.h"
 
 /*******************************************************************
  *                          变量声明                               
@@ -67,12 +68,13 @@ uint8_t cJSON_Update(const cJSON * const object,const char * const string,void *
 void Proscess(void* data)
 {
   PRINT_DEBUG("*** Parsing JSON data ***");
-  cJSON *root,*json_name,*json_temp_num,*json_hum_num;
+  cJSON *root,*json_name,*json_temp_num,*json_hum_num, *json_switch;
   root = cJSON_Parse((char*)data); //解析成json形式
 
   json_name = cJSON_GetObjectItem( root , NAME);  //获取键值内容
   json_temp_num = cJSON_GetObjectItem( root , TEMP_NUM );
   json_hum_num = cJSON_GetObjectItem( root , HUM_NUM );
+  json_switch = cJSON_GetObjectItem( root , "switch" );
 
   PRINT_DEBUG("name: %s",
               json_name->valuestring);
@@ -80,6 +82,15 @@ void Proscess(void* data)
               json_temp_num->valuedouble);
   PRINT_DEBUG("hum_num: %1.1f\r\n",            
               json_hum_num->valuedouble);
+  PRINT_DEBUG("switch: %s",
+              json_switch->valuestring);
+  PRINT_DEBUG("\r\n");
+
+  if (strcmp(json_switch->valuestring, "On") == 0) {
+    HAL_GPIO_WritePin(LD1_GPIO_Port, LD1_Pin, GPIO_PIN_SET);
+  } else if (strcmp(json_switch->valuestring, "Off") == 0) {
+    HAL_GPIO_WritePin(LD1_GPIO_Port, LD1_Pin, GPIO_PIN_RESET);
+  }
 
   cJSON_Delete(root);  //释放内存 
 }

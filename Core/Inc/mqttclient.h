@@ -12,17 +12,18 @@
 #if    LWIP_DNS
 #define   HOST_NAME       "a1MZHjK2SCF.iot-as-mqtt.cn-shanghai.aliyuncs.com"     //服务器域名
 #else
-#define   HOST_NAME       "192.168.0.74"     //服务器IP地址
+#define   HOST_NAME       "192.168.0.82"     //服务器IP地址
 #endif
 
 
-#define   HOST_PORT     1883    //由于是TCP连接，端口必须是1883
+#define   HOST_PORT     7777    //由于是TCP连接，端口必须是1883
 
-#define   CLIENT_ID     "12345|securemode=3,signmethod=hmacsha1|"         //
-#define   USER_NAME     "fire_temp_hum&a1MZHjK2SCF"     //用户名
-#define   PASSWORD      "D6419896E7BEAF8BD9D03C88BF854EA0D3D506AE"  //秘钥
+// #define   CLIENT_ID     "12345|securemode=3,signmethod=hmacsha1|"         //
+#define   CLIENT_ID     "STM32 Dev Board"         //
+#define   USER_NAME     "mackwell"     //用户名
+#define   PASSWORD      "mackwell"  //秘钥
 
-#define   TOPIC         "/topic/test"      //订阅的主题
+#define   TOPIC         "/loop1/d0"      //订阅的主题
 #define   TEST_MESSAGE  "test_message"  //发送测试消息
 
 enum QoS 

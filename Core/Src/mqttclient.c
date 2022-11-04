@@ -539,6 +539,7 @@ MQTT_START:
          PRINT_DEBUG("MQTT user auth failed...\n");
           //关闭链接
          transport_close();
+         vTaskDelay(3000);
          goto MQTT_START;	 
     }
     
