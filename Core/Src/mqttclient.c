@@ -509,7 +509,7 @@ void Client_Connect(void)
     host_ip = ip_ntoa(&dns_ip);
     PRINT_DEBUG("host name : %s , host_ip : %s\n",HOST_NAME,host_ip);
 #else
-    host_ip = HOST_NAME;
+    host_ip = MACKWELL_LAPTOP;
 #endif  
 MQTT_START: 
   

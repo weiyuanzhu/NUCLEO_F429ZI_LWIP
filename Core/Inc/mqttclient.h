@@ -12,7 +12,9 @@
 #if    LWIP_DNS
 #define   HOST_NAME       "a1MZHjK2SCF.iot-as-mqtt.cn-shanghai.aliyuncs.com"     //服务器域名
 #else
-#define   HOST_NAME       "192.168.0.82"     //服务器IP地址
+
+#define   MACKWELL_LAPTOP       "192.168.0.82"     //服务器IP地址
+#define   HOST_NAME       "3.223.78.229"     //服务器IP地址
 #endif
 
 

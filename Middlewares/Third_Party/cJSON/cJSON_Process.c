@@ -86,9 +86,12 @@ void Proscess(void* data)
               json_switch->valuestring);
   PRINT_DEBUG("\r\n");
 
-  if (strcmp(json_switch->valuestring, "On") == 0) {
+  if (strcmp(json_switch->valuestring, "On") == 0 || strcmp(json_switch->valuestring, "on") == 0) 
+  {
     HAL_GPIO_WritePin(LD1_GPIO_Port, LD1_Pin, GPIO_PIN_SET);
-  } else if (strcmp(json_switch->valuestring, "Off") == 0) {
+  } 
+  else if ((strcmp(json_switch->valuestring, "Off") == 0) || (strcmp(json_switch->valuestring, "off") == 0)) 
+  {
     HAL_GPIO_WritePin(LD1_GPIO_Port, LD1_Pin, GPIO_PIN_RESET);
   }
 
