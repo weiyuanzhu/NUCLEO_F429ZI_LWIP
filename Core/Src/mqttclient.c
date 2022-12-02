@@ -277,7 +277,7 @@ int32_t MQTTMsgPublish(int32_t sock, char *topic, int8_t qos, uint8_t* msg)
 			  packid = 0;
 		}
      
-    msg_len = strlen((char *)msg_len);
+    msg_len = strlen((char *)msg);
     
 		//推送消息
 		len = MQTTSerialize_publish(buf, buflen, 0, qos, retained, packid, topicString, (unsigned char*)msg, msg_len);
@@ -674,11 +674,13 @@ MQTT_SEND_START:
         
     xReturn = xQueueReceive( MQTT_Data_Queue,    /* 消息队列的句柄 */
                              &recv_data,      /* 发送的消息内容 */
-                             3000); /* 等待时间 3000ms */
-      if(xReturn == pdTRUE)
-      {
-        a = recv_data->temperature;
-        b = recv_data->humidity;
+                             5000); /* 等待时间 3000ms */
+      // if(xReturn == pdTRUE)
+      // {
+        // a = recv_data->temperature;
+        // b = recv_data->humidity;
+        a = 5.6;
+        b = 7.8;
 //        printf("a = %f,b = %f\n",a,b);
         //更新数据      
         res = cJSON_Update(cJSON_Data,TEMP_NUM,&a);
@@ -702,7 +704,7 @@ MQTT_SEND_START:
         }
         else
           PRINT_DEBUG("update fail\n");
-      }
+      // }
       //这里主要目的是定时向服务器发送PING保活命令
       if((xTaskGetTickCount() - curtick) >(KEEPLIVE_TIME/2*1000))
       {
@@ -739,6 +741,6 @@ void
 mqtt_thread_init(void)
 {
   sys_thread_new("mqtt_recv_thread", mqtt_recv_thread, NULL, 2048, 6);
-  // sys_thread_new("mqtt_send_thread", mqtt_send_thread, NULL, 2048, 7);
+  sys_thread_new("mqtt_send_thread", mqtt_send_thread, NULL, 2048, 7);
 }
 
