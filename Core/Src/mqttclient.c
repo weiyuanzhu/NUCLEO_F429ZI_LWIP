@@ -671,10 +671,10 @@ MQTT_SEND_START:
   
     while(1)
     {
-        
-    xReturn = xQueueReceive( MQTT_Data_Queue,    /* 消息队列的句柄 */
-                             &recv_data,      /* 发送的消息内容 */
-                             5000); /* 等待时间 3000ms */
+    
+    // xReturn = xQueueReceive( MQTT_Data_Queue,    /* 消息队列的句柄 */
+    //                          &recv_data,      /* 发送的消息内容 */
+    //                          5000); /* 等待时间 3000ms */
       // if(xReturn == pdTRUE)
       // {
         // a = recv_data->temperature;
@@ -728,6 +728,8 @@ MQTT_SEND_START:
           //表明有数据交换
           no_mqtt_msg_exchange = 0;
       } 
+
+      osDelay(10 * 1000);
   }
 MQTT_SEND_CLOSE:
 	 //关闭链接
